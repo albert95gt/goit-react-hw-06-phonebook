@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
-import { toast, ToastContainer } from 'react-toastify';
+// import { useState, useEffect } from 'react';
+// import { nanoid } from 'nanoid';
+// import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import ContactForm from '../ContactForm';
 import Filter from '../Filter';
@@ -15,63 +15,60 @@ import { Wrapper, PageTitle, ContactsTitle } from './App.styled';
 //   {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
 // ]
 const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('contacts')) ?? [];
-  });
-  const [filter, setFilter] = useState('');
+  // const [contacts, setContacts] = useState(() => {
+  //   return JSON.parse(window.localStorage.getItem('contacts')) ?? [];
+  // });
+  // const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
-  const onSubmitForm = ({ name, number }) => {
-    const searchContact = contacts.some(contact => {
-      return contact.name.toLowerCase().includes(name.toLowerCase());
-    });
+  // const onSubmitForm = ({ name, number }) => {
+  //   const searchContact = contacts.some(contact => {
+  //     return contact.name.toLowerCase().includes(name.toLowerCase());
+  //   });
 
-    if (searchContact) {
-      toast.error(`${name} is alredy in contacts!!!`);
-      return;
-    }
-    setContacts([
-      ...contacts,
-      {
-        id: nanoid(4),
-        name,
-        number,
-      },
-    ]);
-  };
+  //   if (searchContact) {
+  //     toast.error(`${name} is alredy in contacts!!!`);
+  //     return;
+  //   }
+  //   setContacts([
+  //     ...contacts,
+  //     {
+  //       id: nanoid(4),
+  //       name,
+  //       number,
+  //     },
+  //   ]);
+  // };
 
-  const handleChange = event => {
-    const filterInputValue = event.currentTarget.value;
-    const trimedFilterInputValue = filterInputValue.trim();
-    setFilter(trimedFilterInputValue);
-  };
+  // const handleChange = event => {
+  //   const filterInputValue = event.currentTarget.value;
+  //   const trimedFilterInputValue = filterInputValue.trim();
+  //   setFilter(trimedFilterInputValue);
+  // };
 
-  const filteringContacts = () => {
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(filter.toLowerCase()),
-    );
-  };
+  // const filteringContacts = () => {
+  //   return contacts.filter(({ name }) =>
+  //     name.toLowerCase().includes(filter.toLowerCase()),
+  //   );
+  // };
 
-  const onDeleteContacts = name => {
-    setContacts(contacts.filter(contact => contact.name !== name));
-  };
+  // const onDeleteContacts = name => {
+  //   setContacts(contacts.filter(contact => contact.name !== name));
+  // };
 
   return (
     <Wrapper>
       <PageTitle>Phonebook</PageTitle>
-      <ToastContainer theme="colored" />
-      <ContactForm contacts={contacts} onSubmit={onSubmitForm} />
+      {/* <ToastContainer theme="colored" /> */}
+      <ContactForm />
       <ContactsTitle>Contacts</ContactsTitle>
 
-      <Filter onChange={handleChange} />
+      <Filter />
 
-      <ContactList
-        filteredContacts={filteringContacts()}
-        onDeleteContacts={onDeleteContacts}
-      />
+      <ContactList />
     </Wrapper>
   );
 };
