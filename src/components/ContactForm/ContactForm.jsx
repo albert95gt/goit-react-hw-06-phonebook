@@ -1,7 +1,7 @@
 import { useState } from 'react';
-// import PropTypes from 'prop-types';
 import { MdPersonAddAlt1 } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { addContact } from 'redux/contactSlice';
 import { Form, Label, Input, SubmitBtn } from './ContactForm.styled';
 
@@ -10,6 +10,7 @@ const ContactForm = () => {
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.items);
 
   const handdleChange = event => {
     const name = event.currentTarget.name;
@@ -30,6 +31,14 @@ const ContactForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    const searchContact = contacts.some(contact => {
+      return contact.name.toLowerCase().includes(name.toLowerCase());
+    });
+    if (searchContact) {
+      toast.error(`${name} is alredy in contacts!!!`);
+      return;
+    }
     dispatch(addContact({ name, number }));
     setName('');
     setNumber('');
@@ -66,9 +75,5 @@ const ContactForm = () => {
     </Form>
   );
 };
-
-// ContactForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
 
 export default ContactForm;
