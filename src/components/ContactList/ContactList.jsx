@@ -7,7 +7,7 @@ import { ContactListCss, DeleteContactBtn } from './ContactList.styled';
 
 const ContactList = () => {
   const contacts = useSelector(state => state.contacts.items);
-  const text = useSelector(state => state.contacts.filter);
+  const text = useSelector(state => state.filter.filter);
   const filteredContacts = contacts.filter(({ name }) =>
     name.toLowerCase().includes(text.toLowerCase())
   );
